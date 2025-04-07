@@ -1,14 +1,12 @@
 from dotenv import load_dotenv
 import os
+from openai import OpenAI
+import argparse
+from classify import classify_text
 
-# Load the .env file
-load_dotenv()
 
-# Get the API key
-api_key = os.getenv("OPENAI_API_KEY")
-
-# Debugging: Print a message if key isn't found
-if api_key:
-    print(f"API Key found")
-else:
-    print("API Key not found!")
+if __name__ =="__main__":
+    parser = argparse.ArgumentParser(description='Argument parser for my sentiment analyser')
+    parser.add_argument('--text',type=str,help="A text to classify")
+    args=parser.parse_args()
+    classify_text(args.text)
