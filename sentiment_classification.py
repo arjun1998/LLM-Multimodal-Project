@@ -1,12 +1,12 @@
-from dotenv import load_dotenv
-import os
-from openai import OpenAI
 import argparse
 from classify import classify_text
+import pandas as pd
 
 
 if __name__ =="__main__":
     parser = argparse.ArgumentParser(description='Argument parser for my sentiment analyser')
-    parser.add_argument('--text',type=str,help="A text to classify")
+    parser.add_argument('--path',type=str,help="give path to file containing text to classify")
     args=parser.parse_args()
-    classify_text(args.text)
+    df=pd.read_csv(args.path)
+    df['emotion']=df['text'].apply(classify_text)
+    print(df)
